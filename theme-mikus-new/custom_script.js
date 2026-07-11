@@ -125,7 +125,7 @@
       banner.innerHTML =
         '<div class="mikus-welcome-deco"><span class="mikus-deco mikus-deco-1"></span><span class="mikus-deco mikus-deco-2"></span><span class="mikus-deco mikus-deco-3"></span></div>' +
         '<div class="mikus-welcome-flex"><div class="mikus-welcome-greet">' +
-          '<img class="mikus-greet-icon" src="' + MASCOT_URL + '" alt="Mikus" style="width:110px;height:110px;object-fit:contain;animation:mikusBounce 2.4s ease-in-out infinite;" onerror="this.style.display=\'none\'">' +
+          '<img class="mikus-greet-icon" src="' + MASCOT_URL + '" alt="Mikus" onerror="this.style.display=\'none\'">' +
           '<div class="mikus-greet-info"><span class="mikus-greet-text">' + greet + '</span><span class="mikus-greet-sub">欢迎回来，一切正常运行中</span></div>' +
         '</div><div class="mikus-welcome-time"><span class="mikus-time-date" id="mikusDate"></span><span class="mikus-time-val" id="mikusTime"></span></div></div>';
       if (filterBar && filterBar.parentNode) filterBar.parentNode.insertBefore(banner, filterBar);
