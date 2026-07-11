@@ -6,6 +6,7 @@
   var LOGO_URL = CDN + 'miku.png';
   var LOLI_URL = CDN + 'loli.gif';
   var bannerClock = null;
+  var navTimer = null;
 
   function injectKeyframes() {
     var style;
@@ -20,19 +21,58 @@
     document.head.appendChild(style);
   }
 
+  function injectCompactBannerStyles() {
+    var style;
+    if (document.getElementById('mikus-compact-banner-style')) return;
+    style = document.createElement('style');
+    style.id = 'mikus-compact-banner-style';
+    style.textContent =
+      '.nav-area{padding:14px 18px!important;margin-bottom:14px!important;overflow:hidden!important;}' +
+      '.nav-area .header-row{margin-bottom:10px!important;}' +
+      '.nav-area .filter-bar{margin-top:10px!important;}' +
+      '#mikus-banner.mikus-welcome{padding:2px 0 6px!important;margin:0!important;overflow:visible!important;}' +
+      '#mikus-banner .mikus-welcome-flex{min-height:64px;gap:12px;flex-wrap:nowrap;}' +
+      '#mikus-banner .mikus-welcome-greet{position:relative;min-width:0;min-height:56px;padding-left:82px;gap:10px;}' +
+      '#mikus-banner .mikus-welcome-greet.no-mascot{padding-left:0;}' +
+      '#mikus-banner .mikus-greet-icon{position:absolute;width:118px;height:118px;left:-28px;top:-35px;z-index:3;pointer-events:none;}' +
+      '#mikus-banner .mikus-greet-info{gap:2px;min-width:0;}' +
+      '#mikus-banner .mikus-greet-text{font-size:1.28rem;line-height:1.15;}' +
+      '#mikus-banner .mikus-greet-sub{font-size:.78rem;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}' +
+      '#mikus-banner .mikus-welcome-time{gap:1px;flex:0 0 auto;}' +
+      '#mikus-banner .mikus-time-date{font-size:.78rem;line-height:1.25;}' +
+      '#mikus-banner .mikus-time-val{font-size:1.35rem;line-height:1.1;}' +
+      '@media(max-width:768px){' +
+        '.nav-area{padding:12px 14px!important;margin-bottom:12px!important;}' +
+        '.nav-area .header-row{margin-bottom:8px!important;}' +
+        '.nav-area .filter-bar{margin-top:8px!important;}' +
+        '#mikus-banner.mikus-welcome{padding:0 0 4px!important;}' +
+        '#mikus-banner .mikus-welcome-flex{min-height:52px;gap:8px;}' +
+        '#mikus-banner .mikus-welcome-greet{min-height:46px;padding-left:58px;gap:8px;}' +
+        '#mikus-banner .mikus-greet-icon{width:82px;height:82px;left:-17px;top:-21px;}' +
+        '#mikus-banner .mikus-greet-text{font-size:1.05rem;}' +
+        '#mikus-banner .mikus-greet-sub{font-size:.72rem;}' +
+        '#mikus-banner .mikus-time-date{font-size:.7rem;}' +
+        '#mikus-banner .mikus-time-val{font-size:1rem;}' +
+      '}' +
+      '@media(max-width:520px){' +
+        '#mikus-banner .mikus-welcome-greet{padding-left:52px;}' +
+        '#mikus-banner .mikus-greet-icon{width:74px;height:74px;left:-15px;top:-17px;}' +
+        '#mikus-banner .mikus-greet-sub,#mikus-banner .mikus-time-date{display:none;}' +
+      '}';
+    document.head.appendChild(style);
+  }
+
   function applyPreloader() {
     var old, preloader, progress, stageIndex, stages, timer, hidden;
-    var isLight = document.body.classList.contains('light')
-      || localStorage.getItem('theme_preference') === 'light'
-      || (!document.body.classList.contains('light')
-          && localStorage.getItem('theme_preference') !== 'dark'
-          && window.matchMedia
-          && window.matchMedia('(prefers-color-scheme: light)').matches);
-    console.log('[mikus] isLight=' + isLight + ' bodyLight=' + document.body.classList.contains('light') + ' themePref=' + localStorage.getItem('theme_preference') + ' prefLight=' + (window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)').matches : 'no-mm'));
+    var storedTheme = localStorage.getItem('theme_preference');
+    var isLight = document.body.classList.contains('light') ||
+      storedTheme === 'light' ||
+      (storedTheme !== 'dark' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
     var bg = isLight ? '#f8f6f9' : '#0f0a15';
     var barBg = isLight ? '#e8e0f0' : '#2d2040';
     var textMuted = isLight ? '#6b5a7d' : '#b7a7c8';
     var titleFrom = isLight ? '#2d1b3d' : '#f8f6f9';
+
     old = document.getElementById('loading');
     if (!old || document.getElementById('mikus-preloader')) return;
     preloader = document.createElement('div');
@@ -91,6 +131,7 @@
         setTimeout(function() { if (box.parentNode) box.parentNode.removeChild(box); }, 600);
       }, 300);
     }
+
     setTimeout(hide, 2200);
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function() { setTimeout(hide, 800); });
     else setTimeout(hide, 800);
@@ -136,7 +177,7 @@
       banner.innerHTML =
         '<div class="mikus-welcome-deco"><span class="mikus-deco mikus-deco-1"></span><span class="mikus-deco mikus-deco-2"></span><span class="mikus-deco mikus-deco-3"></span></div>' +
         '<div class="mikus-welcome-flex"><div class="mikus-welcome-greet">' +
-          '<img class="mikus-greet-icon" src="' + MASCOT_URL + '" alt="Mikus" onerror="this.style.display=\'none\'">' +
+          '<img class="mikus-greet-icon" src="' + MASCOT_URL + '" alt="Mikus" onerror="this.style.display=\'none\';this.parentElement.classList.add(\'no-mascot\')">' +
           '<div class="mikus-greet-info"><span class="mikus-greet-text">' + greet + '</span><span class="mikus-greet-sub">欢迎回来，一切正常运行中</span></div>' +
         '</div><div class="mikus-welcome-time"><span class="mikus-time-date" id="mikusDate"></span><span class="mikus-time-val" id="mikusTime"></span></div></div>';
       if (filterBar && filterBar.parentNode) filterBar.parentNode.insertBefore(banner, filterBar);
@@ -171,8 +212,6 @@
       nav.appendChild(wrap);
     } catch (e) {}
   }
-
-  var navTimer = null;
 
   function waitForNav() {
     var observer;
@@ -278,6 +317,7 @@
 
   function init() {
     injectKeyframes();
+    injectCompactBannerStyles();
     applyPreloader();
     document.documentElement.style.scrollBehavior = 'smooth';
     applyMascot();
