@@ -21,6 +21,9 @@
       '#mikus-banner .mikus-greet-info{gap:3px!important;}' +
       '#mikus-banner .mikus-greet-text{font-size:1.5rem!important;line-height:1.16!important;}' +
       '#mikus-banner .mikus-greet-sub{font-size:.91rem!important;line-height:1.4!important;}' +
+      '#mikus-banner .mikus-welcome-time{gap:2px!important;}' +
+      '#mikus-banner .mikus-time-date{font-size:.91rem!important;line-height:1.3!important;}' +
+      '#mikus-banner .mikus-time-val{font-size:1.58rem!important;line-height:1.12!important;}' +
       '@media(max-width:768px){' +
         '.nav-area .filter-bar{margin-top:12px!important;}' +
         '#mikus-banner.mikus-welcome{margin-top:5px!important;padding-bottom:3px!important;}' +
@@ -28,6 +31,8 @@
         '#mikus-banner .mikus-greet-icon{width:96px!important;height:96px!important;left:auto!important;top:auto!important;margin:-10px -5px -8px -18px!important;flex-basis:96px!important;}' +
         '#mikus-banner .mikus-greet-text{font-size:1.2rem!important;}' +
         '#mikus-banner .mikus-greet-sub{font-size:.82rem!important;}' +
+        '#mikus-banner .mikus-time-date{font-size:.82rem!important;}' +
+        '#mikus-banner .mikus-time-val{font-size:1.18rem!important;}' +
       '}' +
       '@media(max-width:520px){' +
         '#mikus-banner .mikus-greet-icon{width:88px!important;height:88px!important;margin:-8px -5px -6px -16px!important;flex-basis:88px!important;}' +
