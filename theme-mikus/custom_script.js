@@ -57,10 +57,10 @@
         'background:var(--mikus-surface)!important;' +
         'box-shadow:inset 0 1px 0 rgba(255,255,255,.04),var(--mikus-shadow-card)!important;' +
       '}' +
-      'html.mikus-dashboard .server-card{' +
+      '.server-card{' +
         'background:var(--mikus-dashboard-card)!important;' +
       '}' +
-      'html.mikus-dashboard .servers-grid{' +
+      '.servers-grid{' +
         'grid-template-columns:repeat(auto-fit,minmax(380px,1fr))!important;' +
       '}' +
       '.admin-loading-overlay{' +
@@ -110,7 +110,7 @@
       '.server-card,.chart-card,.host-card,.filter-tag,.stat-item,.stat-card,.sysinfo-item{' +
         'transition:transform .2s ease,border-color .2s ease,background-color .2s ease,box-shadow .2s ease!important;' +
       '}' +
-      '@media(max-width:768px){html.mikus-dashboard .servers-grid{grid-template-columns:1fr!important;}}' +
+      '@media(max-width:768px){.servers-grid{grid-template-columns:1fr!important;}}' +
       '@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;}.nav-area,.nav-area::before,.nav-area::after,#mikus-mascot img,.mikus-sakura-petal{animation-duration:1ms!important;animation-iteration-count:1!important;}}';
   }
 
@@ -127,7 +127,8 @@
   function updateRouteClasses() {
     var hash = (window.location.hash || '').toLowerCase();
     var isAdmin = hash.indexOf('admin') !== -1;
-    var isDashboard = hash === '' || hash === '#' || hash === '#/';
+    var routePath = hash.split('?')[0];
+    var isDashboard = routePath === '' || routePath === '#' || routePath === '#/';
     var isAdminServers = isAdmin && (
       hash.indexOf('server') !== -1 ||
       hash.indexOf('host') !== -1 ||
