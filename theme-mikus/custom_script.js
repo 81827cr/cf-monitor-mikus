@@ -6,6 +6,8 @@
 
   var CORE_URL = 'https://cdn.jsdelivr.net/gh/aloneowo0/cf-monitor-mikus@9134078d892b267edd6e4a6a82fbf6802fec124a/theme-mikus-new/custom_script.js';
   var routeTimer = null;
+  var serverWatch = null;
+  var serverWatchStopTimer = null;
 
   function injectLowPowerStyles() {
     var style = document.getElementById('mikus-low-power-style');
@@ -122,6 +124,7 @@
       isServerTableVisible()
     );
     document.documentElement.classList.toggle('mikus-admin-servers', isAdminServers);
+    return isAdminServers;
   }
 
   function scheduleRouteUpdate() {
@@ -130,6 +133,33 @@
       routeTimer = null;
       updateRouteClasses();
     }, 80);
+  }
+
+  function stopServerTableWatch() {
+    if (serverWatch) {
+      serverWatch.disconnect();
+      serverWatch = null;
+    }
+    if (serverWatchStopTimer) {
+      clearTimeout(serverWatchStopTimer);
+      serverWatchStopTimer = null;
+    }
+  }
+
+  function watchForServerTable() {
+    var target;
+    stopServerTableWatch();
+    if (updateRouteClasses()) return;
+
+    target = document.getElementById('app') || document.body;
+    if (!target || !window.MutationObserver) return;
+
+    serverWatch = new MutationObserver(function() {
+      if (updateRouteClasses()) stopServerTableWatch();
+    });
+    serverWatch.observe(target, { childList: true, subtree: true });
+
+    serverWatchStopTimer = setTimeout(stopServerTableWatch, 10000);
   }
 
   function injectBannerCorrection() {
@@ -182,7 +212,7 @@
       injectBannerCorrection();
       requestAnimationFrame(injectBannerCorrection);
       setTimeout(injectBannerCorrection, 200);
-      setTimeout(updateRouteClasses, 250);
+      setTimeout(watchForServerTable, 250);
     };
     script.onerror = injectBannerCorrection;
     document.head.appendChild(script);
@@ -193,16 +223,18 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       scheduleRouteUpdate();
-      setTimeout(updateRouteClasses, 500);
+      watchForServerTable();
     });
   } else {
-    setTimeout(updateRouteClasses, 120);
-    setTimeout(updateRouteClasses, 500);
+    setTimeout(watchForServerTable, 120);
   }
   window.addEventListener('hashchange', function() {
     scheduleRouteUpdate();
-    setTimeout(updateRouteClasses, 300);
+    setTimeout(watchForServerTable, 120);
   });
-  window.addEventListener('popstate', scheduleRouteUpdate);
+  window.addEventListener('popstate', function() {
+    scheduleRouteUpdate();
+    setTimeout(watchForServerTable, 120);
+  });
   loadCore();
 })();
