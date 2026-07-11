@@ -1,7 +1,71 @@
 (function() {
   'use strict';
 
+  if (window.__mikusThemeEntryLoaded) return;
+  window.__mikusThemeEntryLoaded = true;
+
   var CORE_URL = 'https://cdn.jsdelivr.net/gh/aloneowo0/cf-monitor-mikus@9134078d892b267edd6e4a6a82fbf6802fec124a/theme-mikus-new/custom_script.js';
+  var coreRequested = false;
+
+  function isPerformanceRoute() {
+    var hash = (window.location.hash || '').toLowerCase();
+    return hash.indexOf('admin') !== -1 || hash.indexOf('server') !== -1;
+  }
+
+  function injectPerformanceStyles() {
+    var style = document.getElementById('mikus-route-performance-style');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'mikus-route-performance-style';
+      document.head.appendChild(style);
+    }
+
+    style.textContent =
+      'html.mikus-performance-mode{scroll-behavior:auto!important;}' +
+      'html.mikus-performance-mode body::after{display:none!important;}' +
+      'html.mikus-performance-mode #mikus-mascot{display:none!important;}' +
+      'html.mikus-performance-mode .server-card,' +
+      'html.mikus-performance-mode .chart-card,' +
+      'html.mikus-performance-mode .host-card,' +
+      'html.mikus-performance-mode .settings-section,' +
+      'html.mikus-performance-mode .table-container,' +
+      'html.mikus-performance-mode .table-wrapper,' +
+      'html.mikus-performance-mode .footer,' +
+      'html.mikus-performance-mode .modal-dialog,' +
+      'html.mikus-performance-mode .terminal-header,' +
+      'html.mikus-performance-mode .nav-area,' +
+      'html.mikus-performance-mode .main-panel,' +
+      'html.mikus-performance-mode .login-container,' +
+      'html.mikus-performance-mode .panel-header,' +
+      'html.mikus-performance-mode .tab-content,' +
+      'html.mikus-performance-mode .admin-loading-overlay,' +
+      'html.mikus-performance-mode .quota-section,' +
+      'html.mikus-performance-mode .disabled-container,' +
+      'html.mikus-performance-mode .user-menu-dropdown,' +
+      'html.mikus-performance-mode .map-wrapper,' +
+      'html.mikus-performance-mode .status-bar,' +
+      'html.mikus-performance-mode .global-stats,' +
+      'html.mikus-performance-mode .stats-grid,' +
+      'html.mikus-performance-mode .view-toggle,' +
+      'html.mikus-performance-mode .modal-overlay,' +
+      'html.mikus-performance-mode .settings-grid,' +
+      'html.mikus-performance-mode .ping-panel,' +
+      'html.mikus-performance-mode .time-selector,' +
+      'html.mikus-performance-mode .tabs{' +
+        'backdrop-filter:none!important;' +
+        '-webkit-backdrop-filter:none!important;' +
+      '}' +
+      'html.mikus-performance-mode .settings-section,' +
+      'html.mikus-performance-mode .table-container,' +
+      'html.mikus-performance-mode .table-wrapper,' +
+      'html.mikus-performance-mode .main-panel,' +
+      'html.mikus-performance-mode .panel-header,' +
+      'html.mikus-performance-mode .tab-content,' +
+      'html.mikus-performance-mode .quota-section,' +
+      'html.mikus-performance-mode .disabled-container{' +
+        'box-shadow:none!important;' +
+      '}';
+  }
 
   function injectBannerCorrection() {
     var style = document.getElementById('mikus-banner-position-correction');
@@ -41,10 +105,13 @@
 
   function loadCore() {
     var script;
+    if (isPerformanceRoute() || coreRequested) return;
     if (window.__mikusThemeCoreLoading) {
       injectBannerCorrection();
       return;
     }
+
+    coreRequested = true;
     window.__mikusThemeCoreLoading = true;
     script = document.createElement('script');
     script.src = CORE_URL;
@@ -54,9 +121,21 @@
       requestAnimationFrame(injectBannerCorrection);
       setTimeout(injectBannerCorrection, 200);
     };
-    script.onerror = injectBannerCorrection;
+    script.onerror = function() {
+      coreRequested = false;
+      window.__mikusThemeCoreLoading = false;
+    };
     document.head.appendChild(script);
   }
 
-  loadCore();
+  function updateRouteMode() {
+    var performanceMode = isPerformanceRoute();
+    document.documentElement.classList.toggle('mikus-performance-mode', performanceMode);
+    if (!performanceMode) loadCore();
+  }
+
+  injectPerformanceStyles();
+  updateRouteMode();
+  window.addEventListener('hashchange', updateRouteMode);
+  window.addEventListener('popstate', updateRouteMode);
 })();
