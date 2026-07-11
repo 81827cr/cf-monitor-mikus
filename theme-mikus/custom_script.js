@@ -232,13 +232,18 @@
 
   injectLowPowerStyles();
   updateRouteClasses();
+  function setupBodyObserver() {
+    new MutationObserver(function() { updateRouteClasses(); }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       scheduleRouteUpdate();
       watchForServerTable();
+      setupBodyObserver();
     });
   } else {
     setTimeout(watchForServerTable, 120);
+    setupBodyObserver();
   }
   window.addEventListener('hashchange', function() {
     updateRouteClasses();
