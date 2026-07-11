@@ -164,9 +164,7 @@ body::after {
 .login-title,
 .stat-main-value,
 .stat-main-value-sm,
-.chart-current-value,
-.mikus-greet-text,
-.mikus-time-val {
+.chart-current-value {
   background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-pink) 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -711,65 +709,59 @@ body::after {
 
 .mikus-welcome {
   position: relative;
-  z-index: 1;
   margin: 16px 0;
-  padding: 28px 32px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--mikus-radius-lg);
+  padding: 20px 28px;
+  z-index: 1;
+  animation: mikusGradientShift 8s ease infinite, mikusFadeDown 0.4s ease;
   background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-hover) 50%, var(--bg-card) 100%);
   background-size: 200% 200%;
+  border: 1px solid var(--border-color);
+  border-radius: var(--mikus-radius-lg);
   box-shadow: var(--mikus-shadow-card);
-  animation: mikusGradientShift 8s ease infinite, fadeInUp 0.4s ease;
   overflow: visible;
 }
 
 .mikus-welcome-deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.mikus-welcome-deco,
-.mikus-deco-1,
-.mikus-deco-2,
-.mikus-deco-3 { border-radius: 50%; }
-.mikus-deco-1,
-.mikus-deco-2,
-.mikus-deco-3 { position: absolute; opacity: 0.1; }
+.mikus-deco { position: absolute; border-radius: 50%; opacity: 0.1; }
 .mikus-deco-1 { width: 200px; height: 200px; background: var(--accent-pink); top: -80px; right: -50px; animation: mikusFloat 6s ease-in-out infinite; }
 .mikus-deco-2 { width: 150px; height: 150px; background: var(--accent-blue); bottom: -60px; left: -40px; animation: mikusFloat 8s ease-in-out infinite reverse; }
 .mikus-deco-3 { width: 100px; height: 100px; background: var(--accent-green); top: 50%; right: 20%; animation: mikusFloat 7s ease-in-out infinite 1s; }
 
-.mikus-welcome-flex {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.mikus-welcome-greet { display: flex; align-items: center; gap: 16px; padding-left: 100px; position: relative; }
+.mikus-welcome-flex { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.mikus-welcome-greet { display: flex; align-items: center; gap: 16px; }
 .mikus-greet-icon {
-  width: 180px;
-  height: 180px;
+  width: 110px;
+  height: 110px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
-  animation: mikusBounce 2s ease-in-out infinite;
-  position: absolute;
-  top: -80px;
-  left: -60px;
-  z-index: 10;
+  filter: drop-shadow(0 4px 12px rgba(232, 102, 138, 0.35));
+  animation: mikusBounce 2.4s ease-in-out infinite;
   transform-origin: bottom center;
-  will-change: transform;
 }
-.mikus-greet-text { font-size: 1.75rem !important; font-weight: 700; letter-spacing: -0.02em; }
+.mikus-greet-info { display: flex; flex-direction: column; gap: 4px; }
+.mikus-greet-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 .mikus-greet-sub { font-size: 0.85rem; color: var(--text-secondary); font-weight: 400; }
 .mikus-welcome-time { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 .mikus-time-date { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
 .mikus-time-val {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   font-family: var(--terminal-font);
+  background: linear-gradient(135deg, var(--accent-pink) 0%, var(--sakura-1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   letter-spacing: 0.05em;
-  text-shadow: 0 2px 10px rgba(232, 102, 138, 0.2);
 }
+
+body.light .mikus-welcome { box-shadow: 0 2px 8px rgba(45, 27, 61, 0.05); }
+body.light .mikus-greet-icon { filter: drop-shadow(0 4px 12px rgba(232, 102, 138, 0.25)); }
 
 #mikus-banner.mikus-welcome {
   background: transparent !important;
@@ -777,12 +769,10 @@ body::after {
   border-radius: 0 !important;
   box-shadow: none !important;
   margin: 0 !important;
-  padding: 0 0 8px !important;
+  padding: 8px 0 12px !important;
   animation: none !important;
 }
-
-#mikus-banner .mikus-welcome-deco,
-.nav-area .mikus-welcome-deco { display: none !important; }
+#mikus-banner .mikus-welcome-deco { display: none !important; }
 
 .mikus-sakura {
   position: absolute;
@@ -831,6 +821,11 @@ body.light .login-overlay { background: rgba(248, 246, 249, 0.62) !important; }
 
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mikusFadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -888,12 +883,6 @@ body.light .login-overlay { background: rgba(248, 246, 249, 0.62) !important; }
 .server-card:nth-child(10) { animation-delay: 0.5s; }
 .stat-item { animation: fadeInScale 0.3s ease forwards; }
 
-@media (min-width: 1025px) and (max-width: 1440px) {
-  .mikus-greet-icon { width: 150px; height: 150px; top: -70px; left: -50px; }
-}
-@media (min-width: 769px) and (max-width: 1024px) {
-  .mikus-greet-icon { width: 120px; height: 120px; top: -55px; left: -40px; }
-}
 @media (max-width: 768px) {
   .container { padding: 8px !important; }
   .terminal-header { padding: 8px 12px !important; }
@@ -906,23 +895,16 @@ body.light .login-overlay { background: rgba(248, 246, 249, 0.62) !important; }
   .server-card { padding: 16px !important; }
   .server-card:hover { transform: translateY(-2px) !important; }
   .modal-dialog { border-radius: var(--mikus-radius-lg) !important; margin: 12px !important; max-width: calc(100% - 24px) !important; }
-  .mikus-welcome { padding: 16px; margin: 12px 0; }
-  .mikus-welcome-greet { padding-left: 70px; }
-  .mikus-greet-icon { width: 80px; height: 80px; top: -40px; left: 0; }
-  .mikus-greet-text { font-size: 1.2rem !important; }
-  .mikus-time-val { font-size: 1.2rem; }
+  .mikus-welcome { padding: 14px 16px; margin: 12px 0; }
+  .mikus-greet-icon { width: 64px; height: 64px; }
+  .mikus-greet-text { font-size: 1.1rem; }
+  .mikus-time-val { font-size: 1rem; }
   .mikus-welcome-time { align-items: flex-end; }
   #mikus-banner.mikus-welcome { padding: 6px 0 10px !important; }
   .mikus-deco-1,
   .mikus-deco-2,
   .mikus-deco-3,
   .mikus-sakura-petal { display: none !important; }
-}
-@media (max-width: 480px) {
-  .mikus-greet-icon { width: 100px; height: 100px; top: -50px; left: -20px; }
-  .mikus-welcome-greet { padding-left: 70px; }
-  .mikus-greet-text { font-size: 1.05rem !important; }
-  .mikus-time-val { font-size: 1.05rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
