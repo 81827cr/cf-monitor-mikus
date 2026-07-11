@@ -135,7 +135,7 @@
       isServerTableVisible()
     );
     document.documentElement.classList.toggle('mikus-dashboard', isDashboard);
-    document.documentElement.classList.toggle('mikus-admin-servers', isAdminServers);
+    document.documentElement.classList.toggle('mikus-admin-servers', isAdmin);
     return isAdminServers;
   }
 
