@@ -1310,10 +1310,7 @@ body.light .nav-area {
   -webkit-backdrop-filter: blur(var(--glass-blur-light, 6px)) !important;
 }
 
-/* body 保留实色底，背景图通过 custom_bg 设置 */
-body {
-  background-color: var(--bg-primary) !important;
-}
+
 
 /* 管理面板元素半透明背景 — 让 backdrop-filter 可见 */
 .login-container,
@@ -1327,4 +1324,23 @@ body {
 .settings-section,
 .main-panel {
   background: var(--bg-card) !important;
+}
+
+/* ============================================================
+   毛玻璃修复 — 中间容器透明，让 body 背景图可被 backdrop-filter 模糊
+   ============================================================ */
+#app,
+.container,
+.admin-container,
+.view-panel,
+.group-section,
+.servers-grid,
+.charts-container,
+.sysinfo-grid {
+  background: transparent !important;
+}
+
+/* body 背景层：实色底 + 保留用户通过后台设置的 background-image */
+html, body {
+  background-color: var(--bg-primary) !important;
 }
