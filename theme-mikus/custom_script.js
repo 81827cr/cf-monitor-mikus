@@ -136,7 +136,7 @@
     );
     document.documentElement.classList.toggle('mikus-dashboard', isDashboard);
     document.documentElement.classList.toggle('mikus-admin-servers', isAdmin);
-    return isAdminServers;
+    return isAdmin;
   }
 
   function scheduleRouteUpdate() {
@@ -241,10 +241,12 @@
     setTimeout(watchForServerTable, 120);
   }
   window.addEventListener('hashchange', function() {
+    updateRouteClasses();
     scheduleRouteUpdate();
     setTimeout(watchForServerTable, 120);
   });
   window.addEventListener('popstate', function() {
+    updateRouteClasses();
     scheduleRouteUpdate();
     setTimeout(watchForServerTable, 120);
   });
