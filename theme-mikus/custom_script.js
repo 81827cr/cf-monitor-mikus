@@ -5,66 +5,40 @@
   window.__mikusThemeEntryLoaded = true;
 
   var CORE_URL = 'https://cdn.jsdelivr.net/gh/aloneowo0/cf-monitor-mikus@9134078d892b267edd6e4a6a82fbf6802fec124a/theme-mikus-new/custom_script.js';
-  var coreRequested = false;
 
-  function isPerformanceRoute() {
-    var hash = (window.location.hash || '').toLowerCase();
-    return hash.indexOf('admin') !== -1 || hash.indexOf('server') !== -1;
-  }
-
-  function injectPerformanceStyles() {
-    var style = document.getElementById('mikus-route-performance-style');
+  function injectLowPowerStyles() {
+    var style = document.getElementById('mikus-low-power-style');
     if (!style) {
       style = document.createElement('style');
-      style.id = 'mikus-route-performance-style';
+      style.id = 'mikus-low-power-style';
       document.head.appendChild(style);
     }
 
     style.textContent =
-      'html.mikus-performance-mode{scroll-behavior:auto!important;}' +
-      'html.mikus-performance-mode body::after{display:none!important;}' +
-      'html.mikus-performance-mode #mikus-mascot{display:none!important;}' +
-      'html.mikus-performance-mode .server-card,' +
-      'html.mikus-performance-mode .chart-card,' +
-      'html.mikus-performance-mode .host-card,' +
-      'html.mikus-performance-mode .settings-section,' +
-      'html.mikus-performance-mode .table-container,' +
-      'html.mikus-performance-mode .table-wrapper,' +
-      'html.mikus-performance-mode .footer,' +
-      'html.mikus-performance-mode .modal-dialog,' +
-      'html.mikus-performance-mode .terminal-header,' +
-      'html.mikus-performance-mode .nav-area,' +
-      'html.mikus-performance-mode .main-panel,' +
-      'html.mikus-performance-mode .login-container,' +
-      'html.mikus-performance-mode .panel-header,' +
-      'html.mikus-performance-mode .tab-content,' +
-      'html.mikus-performance-mode .admin-loading-overlay,' +
-      'html.mikus-performance-mode .quota-section,' +
-      'html.mikus-performance-mode .disabled-container,' +
-      'html.mikus-performance-mode .user-menu-dropdown,' +
-      'html.mikus-performance-mode .map-wrapper,' +
-      'html.mikus-performance-mode .status-bar,' +
-      'html.mikus-performance-mode .global-stats,' +
-      'html.mikus-performance-mode .stats-grid,' +
-      'html.mikus-performance-mode .view-toggle,' +
-      'html.mikus-performance-mode .modal-overlay,' +
-      'html.mikus-performance-mode .settings-grid,' +
-      'html.mikus-performance-mode .ping-panel,' +
-      'html.mikus-performance-mode .time-selector,' +
-      'html.mikus-performance-mode .tabs{' +
-        'backdrop-filter:none!important;' +
-        '-webkit-backdrop-filter:none!important;' +
+      ':root{--glass-blur:5px!important;--glass-blur-light:0px!important;--glass-saturate:1!important;}' +
+      'body::after{display:none!important;}' +
+      'body{background-image:radial-gradient(ellipse at 20% 20%,rgba(255,143,163,.045) 0%,transparent 48%),radial-gradient(ellipse at 80% 80%,rgba(122,179,247,.035) 0%,transparent 48%)!important;background-repeat:no-repeat!important;background-size:100% 100%!important;}' +
+      '.server-card,.chart-card,.host-card,.settings-section,.table-container,.table-wrapper,.footer,.main-panel,.panel-header,.tab-content,.admin-loading-overlay,.quota-section,.disabled-container,.user-menu-dropdown,.map-wrapper,.status-bar,.global-stats,.stats-grid,.view-toggle,.modal-overlay,.settings-grid,.ping-panel,.time-selector,.tabs{' +
+        'backdrop-filter:none!important;-webkit-backdrop-filter:none!important;' +
       '}' +
-      'html.mikus-performance-mode .settings-section,' +
-      'html.mikus-performance-mode .table-container,' +
-      'html.mikus-performance-mode .table-wrapper,' +
-      'html.mikus-performance-mode .main-panel,' +
-      'html.mikus-performance-mode .panel-header,' +
-      'html.mikus-performance-mode .tab-content,' +
-      'html.mikus-performance-mode .quota-section,' +
-      'html.mikus-performance-mode .disabled-container{' +
-        'box-shadow:none!important;' +
-      '}';
+      '.server-card,.chart-card,.host-card,.settings-section,.table-container,.table-wrapper,.footer,.main-panel,.panel-header,.tab-content,.quota-section,.disabled-container,.user-menu-dropdown,.map-wrapper,.status-bar{' +
+        'background:var(--bg-secondary)!important;' +
+        'box-shadow:inset 0 1px 0 rgba(255,255,255,.035),var(--mikus-shadow-card)!important;' +
+      '}' +
+      '.global-stats,.stats-grid,.view-toggle,.settings-grid,.ping-panel,.time-selector,.tabs{' +
+        'background:var(--bg-hover)!important;' +
+      '}' +
+      '.nav-area,.terminal-header,.modal-dialog{' +
+        'backdrop-filter:blur(5px)!important;-webkit-backdrop-filter:blur(5px)!important;' +
+      '}' +
+      '.modal-overlay{background:rgba(0,0,0,.48)!important;}' +
+      '.nav-area,.nav-area::before,.nav-area::after{animation:none!important;}' +
+      '#mikus-mascot img{animation:none!important;filter:drop-shadow(0 4px 10px rgba(232,102,138,.28))!important;}' +
+      '.mikus-sakura-petal:nth-child(even){display:none!important;}' +
+      '.server-card,.chart-card,.host-card,.filter-tag,.stat-item,.stat-card,.sysinfo-item{' +
+        'transition:transform .2s ease,border-color .2s ease,background-color .2s ease,box-shadow .2s ease!important;' +
+      '}' +
+      '@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;}#mikus-mascot img,.mikus-sakura-petal,.nav-area,.nav-area::before,.nav-area::after{animation:none!important;}}';
   }
 
   function injectBannerCorrection() {
@@ -105,13 +79,10 @@
 
   function loadCore() {
     var script;
-    if (isPerformanceRoute() || coreRequested) return;
     if (window.__mikusThemeCoreLoading) {
       injectBannerCorrection();
       return;
     }
-
-    coreRequested = true;
     window.__mikusThemeCoreLoading = true;
     script = document.createElement('script');
     script.src = CORE_URL;
@@ -121,21 +92,10 @@
       requestAnimationFrame(injectBannerCorrection);
       setTimeout(injectBannerCorrection, 200);
     };
-    script.onerror = function() {
-      coreRequested = false;
-      window.__mikusThemeCoreLoading = false;
-    };
+    script.onerror = injectBannerCorrection;
     document.head.appendChild(script);
   }
 
-  function updateRouteMode() {
-    var performanceMode = isPerformanceRoute();
-    document.documentElement.classList.toggle('mikus-performance-mode', performanceMode);
-    if (!performanceMode) loadCore();
-  }
-
-  injectPerformanceStyles();
-  updateRouteMode();
-  window.addEventListener('hashchange', updateRouteMode);
-  window.addEventListener('popstate', updateRouteMode);
+  injectLowPowerStyles();
+  loadCore();
 })();
