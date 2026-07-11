@@ -28,10 +28,10 @@
         '--mikus-dashboard-card:rgba(30,21,48,.48);' +
         '--mikus-admin-surface:rgba(24,17,39,.72);' +
         '--mikus-admin-surface-soft:rgba(30,21,48,.52);' +
-        '--mikus-admin-table-head:rgba(32,23,50,.76);' +
-        '--mikus-admin-table-row:rgba(27,19,43,.44);' +
-        '--mikus-admin-table-row-alt:rgba(35,25,54,.52);' +
-        '--mikus-admin-table-row-hover:rgba(45,32,67,.68);' +
+        '--mikus-admin-table-head:rgba(32,23,50,.84);' +
+        '--mikus-admin-table-row:rgba(27,19,43,.62);' +
+        '--mikus-admin-table-row-alt:rgba(35,25,54,.68);' +
+        '--mikus-admin-table-row-hover:rgba(45,32,67,.80);' +
       '}' +
       'body.light{' +
         '--mikus-surface:rgba(255,255,255,.38);' +
@@ -40,10 +40,10 @@
         '--mikus-dashboard-card:rgba(255,255,255,.62);' +
         '--mikus-admin-surface:rgba(255,255,255,.86);' +
         '--mikus-admin-surface-soft:rgba(255,255,255,.68);' +
-        '--mikus-admin-table-head:rgba(247,244,249,.78);' +
-        '--mikus-admin-table-row:rgba(255,255,255,.48);' +
-        '--mikus-admin-table-row-alt:rgba(248,244,251,.56);' +
-        '--mikus-admin-table-row-hover:rgba(255,255,255,.70);' +
+        '--mikus-admin-table-head:rgba(247,244,249,.84);' +
+        '--mikus-admin-table-row:rgba(255,255,255,.64);' +
+        '--mikus-admin-table-row-alt:rgba(248,244,251,.70);' +
+        '--mikus-admin-table-row-hover:rgba(255,255,255,.82);' +
       '}' +
       'body::after{display:block!important;opacity:.28!important;}' +
       '.server-card,.chart-card,.host-card,.settings-section,.table-container,.table-wrapper,.footer,.main-panel,.panel-header,.tab-content,.admin-loading-overlay,.quota-section,.disabled-container,.user-menu-dropdown,.map-wrapper,.status-bar,.global-stats,.stats-grid,.view-toggle,.modal-overlay,.settings-grid,.ping-panel,.time-selector,.tabs{' +
