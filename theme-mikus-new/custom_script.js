@@ -19,15 +19,15 @@
       '#mikus-banner .mikus-welcome-greet{position:relative!important;min-height:0!important;padding-left:0!important;gap:6px!important;overflow:visible!important;}' +
       '#mikus-banner .mikus-greet-icon{position:relative!important;width:140px!important;height:140px!important;left:auto!important;top:auto!important;margin:-18px -8px -16px -26px!important;flex:0 0 140px!important;z-index:3!important;pointer-events:none;}' +
       '#mikus-banner .mikus-greet-info{gap:3px!important;}' +
-      '#mikus-banner .mikus-greet-text{font-size:1.42rem!important;line-height:1.16!important;}' +
-      '#mikus-banner .mikus-greet-sub{font-size:.86rem!important;line-height:1.4!important;}' +
+      '#mikus-banner .mikus-greet-text{font-size:1.5rem!important;line-height:1.16!important;}' +
+      '#mikus-banner .mikus-greet-sub{font-size:.91rem!important;line-height:1.4!important;}' +
       '@media(max-width:768px){' +
         '.nav-area .filter-bar{margin-top:12px!important;}' +
         '#mikus-banner.mikus-welcome{margin-top:5px!important;padding-bottom:3px!important;}' +
         '#mikus-banner .mikus-welcome-greet{padding-left:0!important;gap:4px!important;}' +
         '#mikus-banner .mikus-greet-icon{width:96px!important;height:96px!important;left:auto!important;top:auto!important;margin:-10px -5px -8px -18px!important;flex-basis:96px!important;}' +
-        '#mikus-banner .mikus-greet-text{font-size:1.14rem!important;}' +
-        '#mikus-banner .mikus-greet-sub{font-size:.78rem!important;}' +
+        '#mikus-banner .mikus-greet-text{font-size:1.2rem!important;}' +
+        '#mikus-banner .mikus-greet-sub{font-size:.82rem!important;}' +
       '}' +
       '@media(max-width:520px){' +
         '#mikus-banner .mikus-greet-icon{width:88px!important;height:88px!important;margin:-8px -5px -6px -16px!important;flex-basis:88px!important;}' +
