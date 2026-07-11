@@ -22,25 +22,30 @@
 
   function applyPreloader() {
     var old, preloader, progress, stageIndex, stages, timer, hidden;
+    var isLight = document.body.classList.contains('light');
+    var bg = isLight ? '#f8f6f9' : '#0f0a15';
+    var barBg = isLight ? '#e8e0f0' : '#2d2040';
+    var textMuted = isLight ? '#6b5a7d' : '#b7a7c8';
+    var titleFrom = isLight ? '#2d1b3d' : '#f8f6f9';
     old = document.getElementById('loading');
     if (!old || document.getElementById('mikus-preloader')) return;
     preloader = document.createElement('div');
     preloader.id = 'mikus-preloader';
-    preloader.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#0f0a15;display:flex;align-items:center;justify-content:center;transition:opacity .6s ease,visibility .6s ease;';
+    preloader.style.cssText = 'position:fixed;inset:0;z-index:9999;background:' + bg + ';display:flex;align-items:center;justify-content:center;transition:opacity .6s ease,visibility .6s ease;';
     preloader.innerHTML =
       '<div style="display:flex;flex-direction:column;align-items:center;gap:24px;">' +
         '<img class="loli gif" src="' + LOLI_URL + '" alt="Loading" style="width:160px;height:160px;object-fit:contain;border-radius:12px;" onerror="this.style.display=\'none\'">' +
         '<div class="preloader-brand" style="display:flex;align-items:center;gap:12px;">' +
           '<img class="miku png" src="' + LOGO_URL + '" alt="Mikus" style="width:36px;height:36px;object-fit:contain;border-radius:8px;animation:mikusBreath 2s ease-in-out infinite;" onerror="this.style.display=\'none\'">' +
-          '<span style="font-size:1.5rem;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,#f8f6f9 0%,#ff8fa3 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Mikus</span>' +
+          '<span style="font-size:1.5rem;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,' + titleFrom + ' 0%,#ff8fa3 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Mikus</span>' +
         '</div>' +
         '<div class="preloader-progress" style="display:flex;align-items:center;gap:12px;width:220px;">' +
-          '<div class="progress-bar" style="flex:1;height:4px;background:#2d2040;border-radius:999px;overflow:hidden;">' +
+          '<div class="progress-bar" style="flex:1;height:4px;background:' + barBg + ';border-radius:999px;overflow:hidden;">' +
             '<div class="progress-fill" id="mikusProgress" style="height:100%;width:0%;background:linear-gradient(90deg,#ffb7c5,#e8668a);border-radius:999px;transition:width .3s ease;"></div>' +
           '</div>' +
-          '<span class="progress-text" id="mikusProgressText" style="min-width:34px;text-align:right;font:600 .75rem/1 Consolas,monospace;color:#b7a7c8;">0%</span>' +
+          '<span class="progress-text" id="mikusProgressText" style="min-width:34px;text-align:right;font:600 .75rem/1 Consolas,monospace;color:' + textMuted + ';">0%</span>' +
         '</div>' +
-        '<div class="preloader-status" id="mikusPreloaderStatus" style="font-size:.8rem;color:#b7a7c8;">正在加载资源...</div>' +
+        '<div class="preloader-status" id="mikusPreloaderStatus" style="font-size:.8rem;color:' + textMuted + ';">正在加载资源...</div>' +
       '</div>';
     old.parentNode.replaceChild(preloader, old);
 
