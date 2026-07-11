@@ -257,10 +257,11 @@ body::after {
   position: relative !important;
   overflow: hidden !important;
   padding: 20px 24px !important;
+  margin-bottom: 20px !important;
   border: 1px solid var(--border-color) !important;
   border-top: 1px solid var(--border-color) !important;
   border-radius: var(--mikus-radius-lg) !important;
-  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-hover) 48%, var(--bg-card) 100%) !important;
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-hover) 40%, var(--bg-hover) 60%, var(--bg-card) 100%) !important;
   background-size: 200% 200% !important;
   animation: mikusGradientShift 8s ease infinite !important;
   box-shadow: var(--mikus-shadow-card) !important;
@@ -297,8 +298,18 @@ body::after {
 
 .nav-area > * { position: relative; z-index: 1; }
 .nav-area .site-title { display: none !important; }
-.nav-area .header-row,
-.nav-area .filter-bar { border: 0 !important; margin-bottom: 0 !important; padding: 0 !important; }
+
+.nav-area .header-row {
+  margin-bottom: 16px !important;
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+}
+.nav-area .filter-bar {
+  margin-top: 16px !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+  margin-bottom: 0 !important;
+}
 
 .filter-tag {
   border-radius: var(--mikus-radius-sm) !important;
