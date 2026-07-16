@@ -20,18 +20,19 @@
 
 ## 快速开始
 
-1. 打开 CF-Server-Monitor 后台 `https://你的域名/#/admin`
-2. 进入 **Settings** → **Appearance**
-3. 在 **CUSTOM `<HEAD>`** 中粘贴：
+1. [Fork 本项目](https://github.com/aloneowo0/cf-monitor-mikus/fork)到你的 GitHub 账号
+2. 打开 CF-Server-Monitor 后台 `https://你的域名/#/admin`
+3. 进入 **Settings** → **Appearance**
+4. 在 **CUSTOM `<HEAD>`** 中粘贴：
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/aloneowo0/cf-monitor-mikus@main/theme-mikus/custom_head.css">
-<script src="https://cdn.jsdelivr.net/gh/aloneowo0/cf-monitor-mikus@main/theme-mikus/custom_script.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/[你的gitub用户名]/cf-monitor-mikus@main/theme-mikus/custom_head.css">
+<script src="https://cdn.jsdelivr.net/gh/[你的gitub用户名]/cf-monitor-mikus@main/theme-mikus/custom_script.js"></script>
 ```
-
-4. **CUSTOM SCRIPT** 留空
-5. 点击 **Save Configuration**
-6. 强制刷新前台（`Ctrl+Shift+R`）
+4. CSP 静态文件域名白名单，填入`https://cdn.jsdelivr.net` (V2.7.10 + 以上版本)
+5. **CUSTOM SCRIPT** 留空
+6. 点击 **Save Configuration**
+7. 强制刷新前台（`Ctrl+Shift+R`）
 
 两行搞定，不用复制大段代码。
 

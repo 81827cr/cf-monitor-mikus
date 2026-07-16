@@ -516,7 +516,6 @@ body::after {
 .terminal-table,
 .table-wrapper {
   border-radius: var(--mikus-radius-md) !important;
-  overflow: hidden !important;
 }
 
 .terminal-table th { background: rgba(0, 0, 0, 0.14) !important; }

@@ -60,9 +60,6 @@
       '.server-card{' +
         'background:var(--mikus-dashboard-card)!important;' +
       '}' +
-      '.servers-grid{' +
-        'grid-template-columns:repeat(auto-fit,minmax(380px,1fr))!important;' +
-      '}' +
       '.admin-loading-overlay{' +
         'background:var(--mikus-surface-strong)!important;' +
       '}' +
