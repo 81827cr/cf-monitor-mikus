@@ -4,7 +4,7 @@
   if (window.__mikusThemeEntryLoaded) return;
   window.__mikusThemeEntryLoaded = true;
 
-  var CORE_URL = 'https://cdn.jsdelivr.net/gh/aloneowo0/cf-monitor-mikus@9134078d892b267edd6e4a6a82fbf6802fec124a/theme-mikus-new/custom_script.js';
+  var CORE_URL = 'https://cdn.jsdelivr.net/gh/81827cr/cf-monitor-mikus@main/adjust.js';
   var routeTimer = null;
   var serverWatch = null;
   var serverWatchStopTimer = null;
