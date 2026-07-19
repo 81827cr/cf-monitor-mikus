@@ -318,7 +318,6 @@
   function init() {
     injectKeyframes();
     injectCompactBannerStyles();
-    applyPreloader();
     document.documentElement.style.scrollBehavior = 'smooth';
     applyMascot();
     waitForNav();
