@@ -93,7 +93,7 @@
         '</div>' +
         '<div class="preloader-status" id="mikusPreloaderStatus" style="font-size:.8rem;color:' + textMuted + ';">正在加载资源...</div>' +
       '</div>';
-    old.parentNode.replaceChild(preloader, old);
+    old.appendChild(preloader);
 
     progress = 0;
     stageIndex = 0;
@@ -318,6 +318,7 @@
   function init() {
     injectKeyframes();
     injectCompactBannerStyles();
+    applyPreloader();
     document.documentElement.style.scrollBehavior = 'smooth';
     applyMascot();
     waitForNav();
